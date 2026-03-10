@@ -1,0 +1,1394 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ashish Khanagwal — Builder, Engineer, Founder</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #0c0c0c;
+        --surface: #141414;
+        --border: #222;
+        --text: #e8e3d8;
+        --muted: #7a7570;
+        --accent: #d4a853;
+        --accent2: #c4553a;
+        --tag-bg: #1c1c1c;
+        --radius: 2px;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: "Lora", Georgia, serif;
+        font-size: 17px;
+        line-height: 1.75;
+        overflow-x: hidden;
+      }
+
+      /* NOISE TEXTURE OVERLAY */
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+        pointer-events: none;
+        z-index: 9999;
+        opacity: 0.5;
+      }
+
+      /* NAV */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.2rem 3rem;
+        background: rgba(12, 12, 12, 0.88);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .nav-logo {
+        font-family: "Syne", sans-serif;
+        font-weight: 800;
+        font-size: 1rem;
+        letter-spacing: 0.08em;
+        color: var(--accent);
+        text-decoration: none;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+      }
+
+      .nav-links a {
+        font-family: "DM Mono", monospace;
+        font-size: 0.78rem;
+        color: var(--muted);
+        text-decoration: none;
+        letter-spacing: 0.06em;
+        transition: color 0.2s;
+      }
+
+      .nav-links a:hover {
+        color: var(--text);
+      }
+
+      /* HERO */
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 8rem 3rem 5rem;
+        max-width: 900px;
+        margin: 0 auto;
+        position: relative;
+      }
+
+      .hero-eyebrow {
+        font-family: "DM Mono", monospace;
+        font-size: 0.75rem;
+        color: var(--accent);
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        margin-bottom: 1.8rem;
+        opacity: 0;
+        animation: fadeUp 0.7s ease 0.1s forwards;
+      }
+
+      .hero-name {
+        font-family: "Syne", sans-serif;
+        font-weight: 800;
+        font-size: clamp(3rem, 8vw, 6rem);
+        line-height: 1;
+        letter-spacing: -0.02em;
+        color: var(--text);
+        opacity: 0;
+        animation: fadeUp 0.7s ease 0.25s forwards;
+      }
+
+      .hero-name span {
+        color: var(--accent);
+      }
+
+      .hero-tagline {
+        font-family: "Lora", serif;
+        font-style: italic;
+        font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+        color: var(--muted);
+        margin-top: 1.5rem;
+        max-width: 600px;
+        opacity: 0;
+        animation: fadeUp 0.7s ease 0.4s forwards;
+      }
+
+      .hero-description {
+        font-size: 1.05rem;
+        color: #9a9590;
+        max-width: 580px;
+        margin-top: 1.5rem;
+        opacity: 0;
+        animation: fadeUp 0.7s ease 0.55s forwards;
+      }
+
+      .hero-ctas {
+        display: flex;
+        gap: 1rem;
+        margin-top: 2.5rem;
+        flex-wrap: wrap;
+        opacity: 0;
+        animation: fadeUp 0.7s ease 0.7s forwards;
+      }
+
+      .btn-primary {
+        font-family: "DM Mono", monospace;
+        font-size: 0.8rem;
+        letter-spacing: 0.1em;
+        padding: 0.8rem 1.8rem;
+        background: var(--accent);
+        color: #0c0c0c;
+        border: none;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+        font-weight: 500;
+        transition:
+          background 0.2s,
+          transform 0.15s;
+      }
+
+      .btn-primary:hover {
+        background: #e0b865;
+        transform: translateY(-1px);
+      }
+
+      .btn-secondary {
+        font-family: "DM Mono", monospace;
+        font-size: 0.8rem;
+        letter-spacing: 0.1em;
+        padding: 0.8rem 1.8rem;
+        background: transparent;
+        color: var(--text);
+        border: 1px solid var(--border);
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+        transition:
+          border-color 0.2s,
+          color 0.2s,
+          transform 0.15s;
+      }
+
+      .btn-secondary:hover {
+        border-color: var(--muted);
+        transform: translateY(-1px);
+      }
+
+      .hero-scroll-hint {
+        position: absolute;
+        bottom: 2.5rem;
+        left: 3rem;
+        font-family: "DM Mono", monospace;
+        font-size: 0.7rem;
+        color: var(--muted);
+        letter-spacing: 0.1em;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        opacity: 0;
+        animation: fadeUp 0.7s ease 1s forwards;
+      }
+
+      .scroll-line {
+        width: 40px;
+        height: 1px;
+        background: var(--muted);
+      }
+
+      /* SECTIONS */
+      section {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 6rem 3rem;
+        border-top: 1px solid var(--border);
+      }
+
+      .section-label {
+        font-family: "DM Mono", monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 3rem;
+      }
+
+      .section-label::before {
+        content: "— ";
+      }
+
+      h2 {
+        font-family: "Syne", sans-serif;
+        font-weight: 700;
+        font-size: clamp(1.8rem, 4vw, 2.8rem);
+        line-height: 1.15;
+        color: var(--text);
+        margin-bottom: 1.5rem;
+      }
+
+      /* STORY / ABOUT */
+      .story-text {
+        font-size: 1.08rem;
+        color: #a09a94;
+        max-width: 680px;
+      }
+
+      .story-text p {
+        margin-bottom: 1.4rem;
+      }
+
+      .story-text strong {
+        color: var(--text);
+        font-weight: 600;
+      }
+
+      .story-text em {
+        color: var(--accent);
+        font-style: italic;
+      }
+
+      .story-highlights {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 1rem;
+        margin-top: 3rem;
+      }
+
+      .highlight-card {
+        border: 1px solid var(--border);
+        padding: 1.4rem;
+        background: var(--surface);
+      }
+
+      .highlight-num {
+        font-family: "Syne", sans-serif;
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--accent);
+        line-height: 1;
+      }
+
+      .highlight-label {
+        font-family: "DM Mono", monospace;
+        font-size: 0.72rem;
+        color: var(--muted);
+        letter-spacing: 0.06em;
+        margin-top: 0.4rem;
+      }
+
+      /* CROOFX FEATURE */
+      .croofx-block {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-left: 3px solid var(--accent);
+        padding: 2.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .croofx-label {
+        font-family: "DM Mono", monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.15em;
+        color: var(--accent);
+        text-transform: uppercase;
+        margin-bottom: 1rem;
+      }
+
+      .croofx-title {
+        font-family: "Syne", sans-serif;
+        font-size: 1.6rem;
+        font-weight: 700;
+        margin-bottom: 0.8rem;
+        color: var(--text);
+      }
+
+      .croofx-desc {
+        color: #9a9590;
+        font-size: 1rem;
+        max-width: 580px;
+        margin-bottom: 1.5rem;
+      }
+
+      .croofx-thesis {
+        font-family: "DM Mono", monospace;
+        font-size: 0.82rem;
+        color: var(--muted);
+        border-top: 1px solid var(--border);
+        padding-top: 1.2rem;
+        margin-top: 1.2rem;
+        line-height: 1.9;
+      }
+
+      .croofx-thesis span {
+        color: var(--accent2);
+      }
+
+      .tag-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 1.2rem;
+      }
+
+      .tag {
+        font-family: "DM Mono", monospace;
+        font-size: 0.7rem;
+        padding: 0.3rem 0.8rem;
+        background: var(--tag-bg);
+        border: 1px solid var(--border);
+        color: var(--muted);
+        letter-spacing: 0.05em;
+      }
+
+      /* EXPERIENCE */
+      .exp-item {
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+        gap: 2rem;
+        padding: 2rem 0;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .exp-item:last-child {
+        border-bottom: none;
+      }
+
+      .exp-meta {
+        padding-top: 0.2rem;
+      }
+
+      .exp-period {
+        font-family: "DM Mono", monospace;
+        font-size: 0.72rem;
+        color: var(--muted);
+        letter-spacing: 0.05em;
+      }
+
+      .exp-company {
+        font-family: "Syne", sans-serif;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--accent);
+        margin-top: 0.3rem;
+      }
+
+      .exp-role {
+        font-family: "Syne", sans-serif;
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 0.8rem;
+      }
+
+      .exp-body {
+        color: #9a9590;
+        font-size: 0.97rem;
+      }
+
+      .exp-body li {
+        margin-bottom: 0.4rem;
+        padding-left: 1rem;
+        position: relative;
+      }
+
+      .exp-body li::before {
+        content: "→";
+        position: absolute;
+        left: 0;
+        color: var(--accent);
+        font-size: 0.8rem;
+      }
+
+      .exp-body ul {
+        list-style: none;
+        margin-top: 0.5rem;
+      }
+
+      /* PROJECTS */
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .project-card {
+        border: 1px solid var(--border);
+        padding: 1.8rem;
+        background: var(--surface);
+        transition:
+          border-color 0.2s,
+          transform 0.2s;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .project-card::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: var(--accent);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.3s ease;
+      }
+
+      .project-card:hover {
+        border-color: #333;
+        transform: translateY(-2px);
+      }
+      .project-card:hover::after {
+        transform: scaleX(1);
+      }
+
+      .project-name {
+        font-family: "Syne", sans-serif;
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 0.6rem;
+      }
+
+      .project-desc {
+        font-size: 0.93rem;
+        color: #8a8480;
+        margin-bottom: 1.2rem;
+        line-height: 1.6;
+      }
+
+      .project-stat {
+        font-family: "DM Mono", monospace;
+        font-size: 0.75rem;
+        color: var(--accent);
+        letter-spacing: 0.04em;
+      }
+
+      /* COMMUNITY */
+      .community-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 1.2rem;
+      }
+
+      .community-card {
+        border: 1px solid var(--border);
+        padding: 1.6rem;
+      }
+
+      .community-icon {
+        font-size: 1.5rem;
+        margin-bottom: 0.8rem;
+      }
+
+      .community-title {
+        font-family: "Syne", sans-serif;
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 0.4rem;
+      }
+
+      .community-role {
+        font-family: "DM Mono", monospace;
+        font-size: 0.7rem;
+        color: var(--accent);
+        letter-spacing: 0.08em;
+        margin-bottom: 0.7rem;
+      }
+
+      .community-desc {
+        font-size: 0.9rem;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      /* SKILLS */
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .skill-group-title {
+        font-family: "DM Mono", monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.12em;
+        color: var(--accent);
+        text-transform: uppercase;
+        margin-bottom: 0.8rem;
+      }
+
+      .skill-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+      }
+
+      .skill-tag {
+        font-family: "DM Mono", monospace;
+        font-size: 0.72rem;
+        padding: 0.25rem 0.7rem;
+        border: 1px solid var(--border);
+        color: #8a8480;
+        letter-spacing: 0.03em;
+      }
+
+      /* RESEARCH */
+      .research-block {
+        border: 1px solid var(--border);
+        padding: 2rem;
+        background: var(--surface);
+      }
+
+      .research-journal {
+        font-family: "DM Mono", monospace;
+        font-size: 0.7rem;
+        color: var(--accent);
+        letter-spacing: 0.12em;
+        margin-bottom: 0.8rem;
+      }
+
+      .research-title {
+        font-family: "Syne", sans-serif;
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 1rem;
+      }
+
+      .research-desc {
+        font-size: 0.97rem;
+        color: #9a9590;
+        margin-bottom: 1.2rem;
+      }
+
+      .research-link {
+        font-family: "DM Mono", monospace;
+        font-size: 0.76rem;
+        color: var(--accent);
+        letter-spacing: 0.08em;
+        text-decoration: none;
+        border-bottom: 1px solid var(--accent);
+        padding-bottom: 1px;
+      }
+
+      /* CONTACT */
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        align-items: start;
+      }
+
+      .contact-text {
+        font-size: 1.05rem;
+        color: #9a9590;
+        margin-bottom: 2rem;
+      }
+
+      .contact-links {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+      }
+
+      .contact-link {
+        font-family: "DM Mono", monospace;
+        font-size: 0.8rem;
+        color: var(--muted);
+        text-decoration: none;
+        letter-spacing: 0.06em;
+        display: flex;
+        align-items: center;
+        gap: 0.7rem;
+        transition: color 0.2s;
+      }
+
+      .contact-link:hover {
+        color: var(--text);
+      }
+
+      .contact-link-icon {
+        width: 20px;
+        color: var(--accent);
+        font-size: 0.9rem;
+      }
+
+      .contact-cta-box {
+        border: 1px solid var(--border);
+        padding: 2rem;
+        background: var(--surface);
+      }
+
+      .contact-cta-title {
+        font-family: "Syne", sans-serif;
+        font-size: 1.3rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: var(--text);
+      }
+
+      .contact-cta-desc {
+        font-size: 0.93rem;
+        color: var(--muted);
+        margin-bottom: 1.5rem;
+      }
+
+      /* FOOTER */
+      footer {
+        border-top: 1px solid var(--border);
+        padding: 2rem 3rem;
+        max-width: 900px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .footer-text {
+        font-family: "DM Mono", monospace;
+        font-size: 0.72rem;
+        color: var(--muted);
+        letter-spacing: 0.05em;
+      }
+
+      .footer-mark {
+        font-family: "DM Mono", monospace;
+        font-size: 0.72rem;
+        color: var(--border);
+        letter-spacing: 0.05em;
+      }
+
+      /* ANIMATIONS */
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(18px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(20px);
+        transition:
+          opacity 0.6s ease,
+          transform 0.6s ease;
+      }
+
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* HORIZONTAL LINE ACCENT */
+      .line-accent {
+        width: 48px;
+        height: 2px;
+        background: var(--accent);
+        margin-bottom: 2rem;
+      }
+
+      /* CODE SNIPPET STYLE */
+      code {
+        font-family: "DM Mono", monospace;
+        font-size: 0.82rem;
+        color: var(--accent2);
+        background: #1a1515;
+        padding: 0.1rem 0.4rem;
+      }
+
+      /* RESPONSIVE */
+      @media (max-width: 700px) {
+        nav {
+          padding: 1rem 1.5rem;
+        }
+        .nav-links {
+          gap: 1rem;
+        }
+        section {
+          padding: 4rem 1.5rem;
+        }
+        .hero {
+          padding: 7rem 1.5rem 4rem;
+        }
+        .exp-item {
+          grid-template-columns: 1fr;
+          gap: 0.5rem;
+        }
+        .contact-grid {
+          grid-template-columns: 1fr;
+        }
+        footer {
+          flex-direction: column;
+          gap: 0.5rem;
+          text-align: center;
+        }
+        .hero-scroll-hint {
+          left: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAV -->
+    <nav>
+      <a class="nav-logo" href="#">AK.</a>
+      <ul class="nav-links">
+        <li><a href="#story">Story</a></li>
+        <li><a href="#croofx">Croofx</a></li>
+        <li><a href="#experience">Work</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <!-- HERO -->
+    <div class="hero">
+      <p class="hero-eyebrow">Engineer · Founder · Open Source</p>
+      <h1 class="hero-name">Ashish<br /><span>Khanagwal</span></h1>
+      <p class="hero-tagline">
+        Building the enforcement layer between AI and production systems.
+      </p>
+      <p class="hero-description">
+        B.Tech AI & Data Science @ MAIT Delhi · Founder of Croofx · CNCF
+        contributor · Community builder. I care deeply about what happens
+        <em>after</em> AI generates code.
+      </p>
+      <div class="hero-ctas">
+        <a href="#croofx" class="btn-primary">See Croofx →</a>
+        <a href="#contact" class="btn-secondary">Get in touch</a>
+        <a
+          href="https://x.com/iashishkhangwal"
+          target="_blank"
+          class="btn-secondary"
+          >@iashishkhangwal ↗</a
+        >
+      </div>
+      <div class="hero-scroll-hint">
+        <div class="scroll-line"></div>
+        scroll to explore
+      </div>
+    </div>
+
+    <!-- STORY -->
+    <section id="story">
+      <p class="section-label">The story</p>
+      <h2>I build things that enforce discipline on AI.</h2>
+      <div class="line-accent"></div>
+      <div class="story-text reveal">
+        <p>
+          It started in 2nd year at MAIT — I was the one on the research team
+          who cracked the human and weapon detection algorithm my seniors
+          couldn't. That paper got published in
+          <strong>IRE Journals</strong> and reached the finals of
+          <strong>Kavach 2023</strong>, India's national public safety hackathon
+          run by the government. I learned early that the hardest engineering
+          problems aren't always the flashiest ones.
+        </p>
+        <p>
+          Since then I've contributed to <strong>Meshery</strong> (a CNCF
+          sandbox project), built AI pipelines at VertexPlus processing vehicle
+          telemetry in real-time, maintained open-source repositories through
+          Hacktoberfest, and founded <em>Code for Community</em> — a developer
+          community that grew to 400+ members without any marketing budget, just
+          genuine care for helping other engineers grow.
+        </p>
+        <p>
+          Today I'm building <strong>Croofx</strong> — a deterministic
+          enforcement engine that sits between AI-generated code and your CI
+          pipeline. Because AI is getting very good at writing code. But no
+          one's built the brakes yet.
+        </p>
+      </div>
+
+      <div class="story-highlights reveal">
+        <div class="highlight-card">
+          <div class="highlight-num">400+</div>
+          <div class="highlight-label">Community members led</div>
+        </div>
+        <div class="highlight-card">
+          <div class="highlight-num">97★</div>
+          <div class="highlight-label">Open source repo stars</div>
+        </div>
+        <div class="highlight-card">
+          <div class="highlight-num">8.51</div>
+          <div class="highlight-label">CGPA · B.Tech AI & DS</div>
+        </div>
+        <div class="highlight-card">
+          <div class="highlight-num">2023</div>
+          <div class="highlight-label">Kavach finalist · IRE published</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CROOFX -->
+    <section id="croofx">
+      <p class="section-label">Current build</p>
+      <h2>Croofx — The AI Execution Control Layer</h2>
+      <div class="line-accent"></div>
+
+      <div class="croofx-block reveal">
+        <div class="croofx-label">Founder · Solo · Building in public</div>
+        <div class="croofx-title">
+          Deterministic enforcement for AI-generated code.
+        </div>
+        <div class="croofx-desc">
+          Every team using AI to write code has the same invisible problem: the
+          AI generates patches probabilistically. But your CI pipeline, your
+          production systems, your deployment contracts — they demand
+          determinism. Right now developers are manually acting as that
+          enforcement layer. Croofx automates it.
+        </div>
+
+        <div class="croofx-thesis">
+          <span>AI generates.</span> Croofx enforces.<br />
+          <span>AI says:</span> "I think this patch is correct."<br />
+          <span>Croofx says:</span> "Validation failed. Merge blocked."<br /><br />
+          <code>croofx validate --ci</code> → FAIL → exit(1) → pipeline fails →
+          merge blocked.<br />
+          No configuration needed. No GitHub OAuth required. Works offline
+          except for the AI call.
+        </div>
+
+        <div class="tag-row">
+          <span class="tag">CLI · Python</span>
+          <span class="tag">SHA256 determinism</span>
+          <span class="tag">CI/CD enforcement</span>
+          <span class="tag">Patch validator</span>
+          <span class="tag">Model-agnostic</span>
+          <span class="tag">v0.0.1 shipped</span>
+        </div>
+      </div>
+
+      <div class="projects-grid reveal">
+        <div class="project-card">
+          <div class="project-name">Core Enforcement Engine</div>
+          <div class="project-desc">
+            Deterministic repo scanner with stable file ordering, SHA256-based
+            hashing, CRLF normalization. Byte-for-byte identical output for
+            unchanged repos. No timestamps, no randomness, no AI in the
+            validator.
+          </div>
+          <div class="project-stat">v0.0.1 → v1.0.0 in progress</div>
+        </div>
+        <div class="project-card">
+          <div class="project-name">Structured AI Contract Layer</div>
+          <div class="project-desc">
+            LLM output normalized into strict JSON schemas before it ever
+            reaches the validator. No loose parsing, no regex hacks. The AI's
+            patch is a contract — not a suggestion.
+          </div>
+          <div class="project-stat">v0.0.2 · Schema enforcement</div>
+        </div>
+        <div class="project-card">
+          <div class="project-name">Patch Simulation & Validator</div>
+          <div class="project-desc">
+            Applies patches to in-memory copies, validates syntax, resolves
+            imports, checks structural boundaries. Pure deterministic logic —
+            zero AI inside the validator. Returns PASS → exit(0) or FAIL →
+            exit(1).
+          </div>
+          <div class="project-stat">v0.9.0 pre-release · THE NUCLEUS</div>
+        </div>
+        <div class="project-card">
+          <div class="project-name">Roadmap: SaaS + Governance</div>
+          <div class="project-desc">
+            v2.0.0 brings secure sandbox execution, team-level AI policy
+            enforcement, dashboard, audit logs. Croofx becomes the governance
+            layer for AI usage across engineering organizations.
+          </div>
+          <div class="project-stat">Post-traction · Long-term vision</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience">
+      <p class="section-label">Work</p>
+      <h2>Where I've built.</h2>
+      <div class="line-accent"></div>
+
+      <div class="exp-item reveal">
+        <div class="exp-meta">
+          <div class="exp-period">May 2025 — Present</div>
+          <div class="exp-company">Layer5 · Meshery</div>
+        </div>
+        <div>
+          <div class="exp-role">Software / MLOps Engineer</div>
+          <div class="exp-body">
+            <ul>
+              <li>
+                Contributing to Meshery, a CNCF sandbox project — service mesh
+                adapters, cloud-native tooling, multi-cloud compatibility.
+              </li>
+              <li>
+                Engineered AI-driven observability systems, metrics processing
+                pipelines, and real-time model performance analytics.
+              </li>
+              <li>
+                Participating in MeshMate mentorship, CI workflows, and
+                community-driven engineering improvements.
+              </li>
+            </ul>
+            <div class="tag-row" style="margin-top: 0.8rem">
+              <span class="tag">Kubernetes</span><span class="tag">CNCF</span
+              ><span class="tag">Distributed Systems</span
+              ><span class="tag">MLOps</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item reveal">
+        <div class="exp-meta">
+          <div class="exp-period">Oct 2024 — Mar 2025</div>
+          <div class="exp-company">VertexPlus Technologies</div>
+        </div>
+        <div>
+          <div class="exp-role">AI Engineer Intern</div>
+          <div class="exp-body">
+            <ul>
+              <li>
+                Built an AI conversational assistant using Phidata, LangChain,
+                and Ollama to generate actionable insights from vehicle
+                telemetry.
+              </li>
+              <li>
+                Python-based ETL pipelines that reduced data processing latency
+                and improved prediction accuracy by 25%.
+              </li>
+              <li>
+                Deployed backend microservices integrating AI models with
+                production APIs for continuous inference and monitoring.
+              </li>
+            </ul>
+            <div class="tag-row" style="margin-top: 0.8rem">
+              <span class="tag">LangChain</span><span class="tag">Ollama</span
+              ><span class="tag">Phidata</span><span class="tag">ETL</span
+              ><span class="tag">Python</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item reveal">
+        <div class="exp-meta">
+          <div class="exp-period">Aug 2023 — Sep 2024</div>
+          <div class="exp-company">Accessible For All</div>
+        </div>
+        <div>
+          <div class="exp-role">Software / AI Engineer</div>
+          <div class="exp-body">
+            <ul>
+              <li>
+                Optimized data ingestion and preprocessing pipelines in Python,
+                NumPy, Pandas — reduced processing time by 30%.
+              </li>
+              <li>
+                Built automated CI/CD pipelines via Jenkins, GitHub Actions, and
+                GitLab CI, cutting deployment cycles by 40%.
+              </li>
+              <li>
+                Engineered RESTful APIs serving ML-based accessibility
+                recommendations with 20% improved real-time responsiveness.
+              </li>
+            </ul>
+            <div class="tag-row" style="margin-top: 0.8rem">
+              <span class="tag">Python</span><span class="tag">CI/CD</span
+              ><span class="tag">Jenkins</span><span class="tag">Docker</span
+              ><span class="tag">REST APIs</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item reveal">
+        <div class="exp-meta">
+          <div class="exp-period">2022</div>
+          <div class="exp-company">Hacktoberfest</div>
+        </div>
+        <div>
+          <div class="exp-role">Repository Maintainer</div>
+          <div class="exp-body">
+            <ul>
+              <li>
+                Reviewed and merged 80+ pull requests, enforcing code quality
+                and structured branching strategies.
+              </li>
+              <li>
+                Automated workflows using GitHub Actions, improving CI
+                reliability and contributor efficiency.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+      <p class="section-label">Projects</p>
+      <h2>Things I've shipped.</h2>
+      <div class="line-accent"></div>
+
+      <div class="projects-grid">
+        <div class="project-card reveal">
+          <div class="project-name">Open Source Practice & Resources</div>
+          <div class="project-desc">
+            Community-driven resource hub covering DevOps, ML, Web3, backend,
+            and frontend. 391 commits. Grew organically during Hacktoberfest —
+            no marketing, just genuine utility.
+          </div>
+          <div class="project-stat">
+            ★ 97 stars · 91 forks · github.com/Ashish-khanagwal
+          </div>
+        </div>
+        <div class="project-card reveal">
+          <div class="project-name">Penguin Classifier — ML Web App</div>
+          <div class="project-desc">
+            End-to-end ML application in Python and Streamlit. Random Forest
+            model with 98% accuracy. Single and batch inference modes,
+            confidence score visualization, CSV upload support.
+          </div>
+          <div class="project-stat">Scikit-learn · Streamlit · Pandas</div>
+        </div>
+        <div class="project-card reveal">
+          <div class="project-name">Finance Data Pipeline (Simulated)</div>
+          <div class="project-desc">
+            Microservice-based pipeline using Java, Golang, and PostgreSQL. Full
+            containerization via Docker Compose with health checks. Automated
+            builds with Makefile and CI workflows.
+          </div>
+          <div class="project-stat">Java · Golang · Docker · PostgreSQL</div>
+        </div>
+        <div class="project-card reveal">
+          <div class="project-name">NBA EDA Dashboard</div>
+          <div class="project-desc">
+            Streamlit dashboard analyzing NBA player stats. Automated web
+            scraping with BeautifulSoup, interactive correlation heatmaps,
+            comparative performance charts.
+          </div>
+          <div class="project-stat">
+            Python · Streamlit · Seaborn · BeautifulSoup
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESEARCH -->
+    <section id="research">
+      <p class="section-label">Research</p>
+      <h2>Published work.</h2>
+      <div class="line-accent"></div>
+
+      <div class="research-block reveal">
+        <div class="research-journal">
+          IRE Journals · Vol. 6, Issue 11 · 2023
+        </div>
+        <div class="research-title">
+          Smart Street Light System Using IoT & Computer Vision
+        </div>
+        <div class="research-desc">
+          Built the core human and weapon detection algorithm — the component my
+          seniors on the team couldn't crack — using Python and OpenCV.
+          Integrated AWS IoT Core for device connectivity and telemetry.
+          Deployed Jenkins and GitHub Actions CI/CD pipelines. The project
+          reached the
+          <strong style="color: var(--text)">finals of Kavach 2023</strong>,
+          India's national government-run public safety hackathon.
+        </div>
+        <div class="tag-row" style="margin-bottom: 1.2rem">
+          <span class="tag">Python</span><span class="tag">OpenCV</span
+          ><span class="tag">AWS IoT Core</span>
+          <span class="tag">Computer Vision</span><span class="tag">CI/CD</span
+          ><span class="tag">Kavach 2023 Finalist</span>
+        </div>
+        <a
+          href="https://irejournals.com/index.php/paper-details/1704501"
+          target="_blank"
+          class="research-link"
+          >Read the paper ↗</a
+        >
+      </div>
+    </section>
+
+    <!-- COMMUNITY -->
+    <section id="community">
+      <p class="section-label">Community</p>
+      <h2>Beyond the keyboard.</h2>
+      <div class="line-accent"></div>
+
+      <div class="community-grid reveal">
+        <div class="community-card">
+          <div class="community-icon">⚙️</div>
+          <div class="community-title">Code for Community</div>
+          <div class="community-role">Founder</div>
+          <div class="community-desc">
+            Founded and scaled a 400+ member community focused on AI/ML and Data
+            Science. Organized workshops with Eduhub Community, created
+            open-source repositories, and mentored developers building
+            real-world projects.
+          </div>
+        </div>
+        <div class="community-card">
+          <div class="community-icon">📡</div>
+          <div class="community-title">IEEE Week of Code</div>
+          <div class="community-role">Project Administrator</div>
+          <div class="community-desc">
+            Guided teams building AI/ML and web development projects in a
+            competitive engineering environment. Mentored contributors on Git
+            workflows, Python, and data pipeline design.
+          </div>
+        </div>
+        <div class="community-card">
+          <div class="community-icon">🌐</div>
+          <div class="community-title">Layer5 · Meshery</div>
+          <div class="community-role">CNCF Open Source Contributor</div>
+          <div class="community-desc">
+            Active contributor to a CNCF sandbox project. Working on service
+            mesh adapters, cloud-native tooling, and CI workflows alongside a
+            global engineering community.
+          </div>
+        </div>
+        <div class="community-card">
+          <div class="community-icon">🔨</div>
+          <div class="community-title">Building in Public</div>
+          <div class="community-role">@iashishkhangwal on X</div>
+          <div class="community-desc">
+            Sharing the real story of building Croofx — the decisions, the bugs,
+            the thesis. Raw, technical, no hype. Threads, takes, and the
+            occasional 💀 when AI agents break prod.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <p class="section-label">Skills</p>
+      <h2>The toolkit.</h2>
+      <div class="line-accent"></div>
+
+      <div class="skills-grid reveal">
+        <div>
+          <div class="skill-group-title">AI / ML</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">TensorFlow</span>
+            <span class="skill-tag">PyTorch</span>
+            <span class="skill-tag">Scikit-learn</span>
+            <span class="skill-tag">LangChain</span>
+            <span class="skill-tag">Ollama</span>
+            <span class="skill-tag">OpenCV</span>
+            <span class="skill-tag">Pandas</span>
+            <span class="skill-tag">NumPy</span>
+          </div>
+        </div>
+        <div>
+          <div class="skill-group-title">DevOps / CI-CD</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Docker</span>
+            <span class="skill-tag">Kubernetes</span>
+            <span class="skill-tag">GitHub Actions</span>
+            <span class="skill-tag">Jenkins</span>
+            <span class="skill-tag">GitLab CI</span>
+            <span class="skill-tag">Terraform</span>
+            <span class="skill-tag">Ansible</span>
+            <span class="skill-tag">Helm</span>
+          </div>
+        </div>
+        <div>
+          <div class="skill-group-title">Backend / Systems</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Golang</span>
+            <span class="skill-tag">Node.js</span>
+            <span class="skill-tag">Java</span>
+            <span class="skill-tag">REST APIs</span>
+            <span class="skill-tag">PostgreSQL</span>
+            <span class="skill-tag">MongoDB</span>
+            <span class="skill-tag">Bash</span>
+            <span class="skill-tag">Linux</span>
+          </div>
+        </div>
+        <div>
+          <div class="skill-group-title">Cloud / Infra</div>
+          <div class="skill-tags">
+            <span class="skill-tag">AWS (EC2, S3, Lambda)</span>
+            <span class="skill-tag">GCP</span>
+            <span class="skill-tag">DigitalOcean</span>
+            <span class="skill-tag">Prometheus</span>
+            <span class="skill-tag">Grafana</span>
+            <span class="skill-tag">Kafka</span>
+            <span class="skill-tag">Apache Airflow</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <p class="section-label">Contact</p>
+      <h2>Let's talk.</h2>
+      <div class="line-accent"></div>
+
+      <div class="contact-grid reveal">
+        <div>
+          <p class="contact-text">
+            Whether you're a founder, recruiter, open source contributor, or
+            someone thinking hard about AI in production — I'm always up for a
+            real conversation. No cold decks. No spam. Just builder talk.
+          </p>
+          <div class="contact-links">
+            <a href="mailto:ashishkhanagwal2001@gmail.com" class="contact-link">
+              <span class="contact-link-icon">✉</span>
+              ashishkhanagwal2001@gmail.com
+            </a>
+            <a
+              href="https://x.com/iashishkhangwal"
+              target="_blank"
+              class="contact-link"
+            >
+              <span class="contact-link-icon">✕</span>
+              @iashishkhangwal
+            </a>
+            <a
+              href="https://linkedin.com/in/Ashishkhanagwal"
+              target="_blank"
+              class="contact-link"
+            >
+              <span class="contact-link-icon">in</span>
+              linkedin.com/in/Ashishkhanagwal
+            </a>
+            <a
+              href="https://github.com/Ashishkhanagwal"
+              target="_blank"
+              class="contact-link"
+            >
+              <span class="contact-link-icon">⌥</span>
+              github.com/Ashishkhanagwal
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <div class="contact-cta-box">
+            <div class="contact-cta-title">Interested in Croofx?</div>
+            <div class="contact-cta-desc">
+              If you're a team that ships AI-generated code to production and
+              wants deterministic enforcement before it reaches CI — let's talk.
+              Early access, feedback sessions, or just a technical deep-dive.
+            </div>
+            <a
+              href="mailto:ashishkhanagwal2001@gmail.com?subject=Croofx - Early Access"
+              class="btn-primary"
+              >Talk about Croofx →</a
+            >
+          </div>
+
+          <div
+            class="contact-cta-box"
+            style="margin-top: 1rem; border-left: 2px solid var(--accent2)"
+          >
+            <div class="contact-cta-title" style="font-size: 1rem">
+              Open to opportunities
+            </div>
+            <div class="contact-cta-desc">
+              MLOps, DevOps, AI Engineering roles where I can build real
+              systems. Especially interesting if you're a startup doing
+              something ambitious.
+            </div>
+            <a
+              href="mailto:ashishkhanagwal2001@gmail.com?subject=Opportunity"
+              class="btn-secondary"
+              style="font-size: 0.75rem"
+              >Send a note →</a
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <p class="footer-text">Ashish Khanagwal · Delhi, India · 2025</p>
+      <p class="footer-mark">Built with intention. Not a template.</p>
+    </footer>
+
+    <script>
+      // Intersection observer for reveal animations
+      const reveals = document.querySelectorAll(".reveal");
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+              // stagger children if any
+            }
+          });
+        },
+        { threshold: 0.1 },
+      );
+
+      reveals.forEach((el) => observer.observe(el));
+
+      // Smooth active state on nav
+      const sections = document.querySelectorAll("section[id], div[id]");
+      const navLinks = document.querySelectorAll(".nav-links a");
+
+      window.addEventListener("scroll", () => {
+        let current = "";
+        sections.forEach((section) => {
+          const sectionTop = section.offsetTop - 120;
+          if (window.scrollY >= sectionTop) {
+            current = section.getAttribute("id");
+          }
+        });
+        navLinks.forEach((link) => {
+          link.style.color = "";
+          if (link.getAttribute("href") === `#${current}`) {
+            link.style.color = "var(--text)";
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

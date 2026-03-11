@@ -535,24 +535,40 @@ h2 {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.25rem 0.5rem;
+  width: 36px;
+  height: 36px;
+  padding: 0;
   border-radius: 999px;
-  border: 1px solid var(--border);
-  background: rgba(12, 12, 12, 0.5);
+  border: 1px solid rgba(212, 168, 83, 0.35);
+  background: radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.2), rgba(20, 20, 20, 0.55) 60%);
   cursor: pointer;
-  transition: box-shadow 0.2s ease, transform 0.15s ease, border-color 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.project-stat-github::before {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  border-radius: 999px;
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0) 45%);
+  opacity: 0.7;
+  pointer-events: none;
 }
 
 .project-stat-github img {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   display: block;
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.25));
 }
 
 .project-stat-github:hover {
+  background: radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.28), rgba(20, 20, 20, 0.62) 58%);
   border-color: var(--accent);
-  box-shadow: 0 0 12px rgba(212, 168, 83, 0.5);
-  transform: translateY(-1px);
+  box-shadow: 0 0 20px rgba(212, 168, 83, 0.58), inset 0 0 10px rgba(212, 168, 83, 0.18);
+  transform: translateY(-1px) scale(1.04);
 }
 
 .build-label {
@@ -698,8 +714,16 @@ h2 {
   color: var(--accent);
   letter-spacing: 0.08em;
   text-decoration: none;
-  border-bottom: 1px solid var(--accent);
-  padding-bottom: 1px;
+  border: 1px solid var(--accent);
+  padding: 0.45rem 0.75rem;
+  display: inline-block;
+  transition: box-shadow 0.2s ease, transform 0.2s ease, background 0.2s ease;
+}
+
+.research-link:hover {
+  background: rgba(212, 168, 83, 0.08);
+  box-shadow: 0 0 14px rgba(212, 168, 83, 0.55);
+  transform: translateY(-1px);
 }
 
 /* CONTACT */
@@ -718,28 +742,50 @@ h2 {
 
 .contact-links {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   gap: 0.8rem;
+  max-width: 360px;
 }
 
 .contact-link {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.8rem;
-  color: var(--muted);
+  width: 50px;
+  height: 50px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 168, 83, 0.35);
+  background: radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.2), rgba(20, 20, 20, 0.55) 60%);
   text-decoration: none;
-  letter-spacing: 0.06em;
   display: flex;
+  justify-content: center;
   align-items: center;
-  gap: 0.7rem;
-  transition: color 0.2s;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
 }
 
-.contact-link:hover { color: var(--text); }
+.contact-link::before {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  border-radius: 999px;
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0) 45%);
+  opacity: 0.7;
+  pointer-events: none;
+}
 
-.contact-link-icon {
-  width: 20px;
-  color: var(--accent);
-  font-size: 0.9rem;
+.contact-link:hover {
+  transform: translateY(-1px) scale(1.04);
+  border-color: var(--accent);
+  background: radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.28), rgba(20, 20, 20, 0.62) 58%);
+  box-shadow: 0 0 20px rgba(212, 168, 83, 0.58), inset 0 0 10px rgba(212, 168, 83, 0.18);
+}
+
+.contact-logo {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.25));
 }
 
 .contact-cta-box {

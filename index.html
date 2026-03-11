@@ -167,44 +167,69 @@
         </div>
       </div>
 
+      <p class="build-label reveal">How it’s built</p>
+
       <div class="projects-grid reveal">
         <div class="project-card">
           <div class="project-name">Core Enforcement Engine</div>
           <div class="project-desc">
-            Deterministic repo scanner with stable file ordering, SHA256-based
-            hashing, CRLF normalization. Byte-for-byte identical output for
-            unchanged repos. No timestamps, no randomness, no AI in the
-            validator.
+            Deterministic repository analysis built for repeatable results.
+            Croofx scans and models the structure of your codebase so
+            AI-generated changes can be evaluated in a stable, predictable
+            environment before they ever touch your workflows.
           </div>
-          <div class="project-stat">v0.0.1 → v1.0.0 in progress</div>
+          <div class="build-pills">
+            <div class="build-pill build-pill-accent">v0.0.1 → v1.0.0 in progress</div>
+            <div class="build-pill">Foundation layer</div>
+          </div>
         </div>
         <div class="project-card">
           <div class="project-name">Structured AI Contract Layer</div>
           <div class="project-desc">
-            LLM output normalized into strict JSON schemas before it ever
-            reaches the validator. No loose parsing, no regex hacks. The AI's
-            patch is a contract not a suggestion.
+            AI output is normalized into strict structured formats before it
+            reaches the validator. Croofx turns loose model responses into
+            concrete change contracts that can be safely analyzed and verified.
           </div>
-          <div class="project-stat">v0.0.2 · Schema enforcement</div>
+          <div class="build-pills">
+            <div class="build-pill">v0.0.2</div>
+            <div class="build-pill">Schema enforcement</div>
+          </div>
         </div>
         <div class="project-card">
           <div class="project-name">Patch Simulation & Validator</div>
           <div class="project-desc">
-            Applies patches to in-memory copies, validates syntax, resolves
-            imports, checks structural boundaries. Pure deterministic logic zero
-            AI inside the validator. Returns PASS → exit(0) or FAIL → exit(1).
+            Croofx simulates AI-generated patches against an in-memory copy of
+            the repo, checking structure, syntax, and dependencies for hidden
+            breakage. Only deterministic, validator-approved patches move
+            forward there is zero AI inside the enforcement path.
           </div>
-          <div class="project-stat">v0.9.0 pre-release · THE NUCLEUS</div>
+          <div class="build-pills">
+            <div class="build-pill build-pill-merge">The nucleus</div>
+            <div class="build-pill">v0.9.0 pre-release</div>
+          </div>
         </div>
         <div class="project-card">
           <div class="project-name">Roadmap: SaaS + Governance</div>
           <div class="project-desc">
-            v2.0.0 brings secure sandbox execution, team-level AI policy
-            enforcement, dashboard, audit logs. Croofx becomes the governance
-            layer for AI usage across engineering organizations.
+            The long-term layer that gives teams policy control and visibility
+            over how AI touches their code. Model routing, usage policies, and
+            audit trails all flow through a single governance plane.
           </div>
-          <div class="project-stat">Post-traction · Long-term vision</div>
+          <div class="build-pills">
+            <div class="build-pill">v2.0.0</div>
+            <div class="build-pill">Long-term vision</div>
+          </div>
         </div>
+      </div>
+
+      <div class="croofx-footer-cta">
+        <a
+          href="https://www.croovi.com/"
+          target="_blank"
+          class="btn-primary"
+        >
+          Join the waitlist →
+        </a>
       </div>
     </section>
 
@@ -220,7 +245,7 @@
           <div class="exp-company">Layer5 · Meshery</div>
         </div>
         <div>
-          <div class="exp-role">Software / MLOps Engineer</div>
+          <div class="exp-role">MLOps Engineer</div>
           <div class="exp-body">
             <ul>
               <li>
@@ -346,7 +371,15 @@
             marketing, just genuine utility.
           </div>
           <div class="project-stat">
-            ★ 97 stars · 91 forks · github.com/Ashish-khanagwal
+            <span>★ 97 stars · 91 forks</span>
+            <a
+              href="https://github.com/Ashish-khanagwal/Open-source-practice-and-resources"
+              target="_blank"
+              class="project-stat-github"
+              aria-label="View GitHub profile"
+            >
+              <img src="github.png" alt="GitHub" />
+            </a>
           </div>
         </div>
         <div class="project-card reveal">

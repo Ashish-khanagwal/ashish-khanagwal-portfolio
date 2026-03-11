@@ -284,6 +284,10 @@ h2 {
   margin-bottom: 2rem;
 }
 
+.croofx-footer-cta {
+  margin-top: 1.5rem;
+}
+
 .croofx-label {
   font-family: 'DM Mono', monospace;
   font-size: 0.72rem;
@@ -522,6 +526,71 @@ h2 {
   font-size: 0.75rem;
   color: var(--accent);
   letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.project-stat-github {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem 0.5rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(12, 12, 12, 0.5);
+  cursor: pointer;
+  transition: box-shadow 0.2s ease, transform 0.15s ease, border-color 0.2s ease;
+}
+
+.project-stat-github img {
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+
+.project-stat-github:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 12px rgba(212, 168, 83, 0.5);
+  transform: translateY(-1px);
+}
+
+.build-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 2.2rem 0 1.2rem;
+}
+
+.build-pills {
+  margin-top: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.build-pill {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  padding: 0.65rem 0.9rem;
+  border: 1px solid var(--border);
+  background: rgba(12, 12, 12, 0.35);
+  color: #8a8480;
+}
+
+.build-pill-accent {
+  border-color: rgba(212, 168, 83, 0.35);
+  background: rgba(212, 168, 83, 0.08);
+  color: var(--accent);
+}
+
+.build-pill-merge {
+  border-color: rgba(196, 210, 74, 0.35);
+  background: rgba(196, 210, 74, 0.12);
+  color: #c4d24a;
 }
 
 /* COMMUNITY */

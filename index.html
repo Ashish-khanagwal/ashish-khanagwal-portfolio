@@ -13,14 +13,16 @@
   <body>
     <!-- NAV -->
     <nav>
-      <a class="nav-logo" href="#">AK.</a>
-      <ul class="nav-links">
-        <li><a href="#story">Story</a></li>
-        <li><a href="#croofx">Croofx</a></li>
-        <li><a href="#experience">Work</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
+      <div class="nav-inner">
+        <a class="nav-logo" href="#">AK.</a>
+        <ul class="nav-links">
+          <li><a href="#story">Story</a></li>
+          <li><a href="#croofx">Croofx</a></li>
+          <li><a href="#experience">Work</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
     </nav>
 
     <!-- HERO -->
@@ -105,39 +107,63 @@
     <!-- CROOFX -->
     <section id="croofx">
       <p class="section-label">Current build</p>
-      <h2>Croofx | The AI Execution Control Layer</h2>
+      <h2>Croofx <span class="accent-separator">|</span> The AI Execution Control Layer</h2>
       <div class="line-accent"></div>
 
       <div class="croofx-block reveal">
         <div class="croofx-label">Founder · Solo · Building in public</div>
         <div class="croofx-title">
-          Deterministic enforcement for AI-generated code.
+          AI code is getting merged. Nobody's actually checking it.
         </div>
         <div class="croofx-desc">
-          Every team using AI to write code has the same invisible problem: the
-          AI generates patches probabilistically. But your CI pipeline, your
-          production systems, your deployment contracts they demand determinism.
-          Right now developers are manually acting as that enforcement layer.
-          Croofx automates it.
+          Every team using AI to write code has the same invisible problem: <strong>the AI generates patches probabilistically, but your CI pipeline, your production systems, your deployment contracts, they demand determinism.</strong>
+      Right now, developers are manually acting as that enforcement layer. Reviewing AI output line by line. Hoping nothing breaks.
+      Croofx automates that layer. It sits between your AI tool and your codebase, validates every patch before it touches production, and blocks the merge if it fails with a hard exit code, no exceptions.
         </div>
 
         <div class="croofx-thesis">
-          <span>AI generates.</span> Croofx enforces.<br />
-          <span>AI says:</span> "I think this patch is correct."<br />
-          <span>Croofx says:</span> "Validation failed. Merge blocked."<br /><br />
-          <code>croofx validate --ci</code> → FAIL → exit(1) → pipeline fails →
-          merge blocked.<br />
-          No configuration needed. No GitHub OAuth required. Works offline
-          except for the AI call.
+          <div class="croofx-terminal">
+            <div class="croofx-terminal-lines">
+              <span class="croofx-terminal-ai">AI says:</span>
+              <span class="croofx-terminal-text">
+                "I think this patch is correct."
+              </span>
+              <br />
+              <span class="croofx-terminal-croofx">Croofx says:</span>
+              <span class="croofx-terminal-text">
+                "Validation failed. Merge blocked."
+              </span>
+            </div>
+
+            <div class="croofx-terminal-divider"></div>
+
+            <div class="croofx-terminal-body">
+              <span class="croofx-terminal-prompt">$</span>
+              <span class="croofx-terminal-command">croofx validate --ci</span>
+              <br />
+              <span class="croofx-terminal-flow">
+                → scans repo → validates patch → FAIL → exit(1) → pipeline fails
+                → merge blocked
+              </span>
+              <br /><br />
+              <span class="croofx-terminal-note">
+                No configuration needed. No GitHub OAuth required. Works offline
+                except for the AI call. No AI in the validation path.
+              </span>
+            </div>
+          </div>
         </div>
 
         <div class="tag-row">
           <span class="tag">CLI · Python</span>
-          <span class="tag">SHA256 determinism</span>
           <span class="tag">CI/CD enforcement</span>
           <span class="tag">Patch validator</span>
           <span class="tag">Model-agnostic</span>
-          <span class="tag">v0.0.1 shipped</span>
+          <span class="tag tag-merge">Merge-blocking</span>
+        </div>
+        <div class="tag-row">
+          <span class="tag tag-critical">Zero AI in validation path</span>
+          <span class="tag tag-status">v0.0.1 in progress</span>
         </div>
       </div>
 
@@ -531,20 +557,28 @@
               @iashishkhangwal
             </a>
             <a
-              href="https://linkedin.com/in/Ashishkhanagwal"
+              href="https://www.linkedin.com/in/ashish-khanagwal-890326213/"
               target="_blank"
               class="contact-link"
             >
               <span class="contact-link-icon">in</span>
-              linkedin.com/in/Ashishkhanagwal
+              LinkedIn: Ashish-khanagwal
             </a>
             <a
-              href="https://github.com/Ashishkhanagwal"
+              href="https://github.com/Ashish-khanagwal"
               target="_blank"
               class="contact-link"
             >
               <span class="contact-link-icon">⌥</span>
-              github.com/Ashishkhanagwal
+              GitHub: Ashish-khanagwal
+            </a>
+            <a
+              href="https://www.instagram.com/i.ashishkhanagwal/"
+              target="_blank"
+              class="contact-link"
+            >
+              <span class="contact-link-icon">⌥</span>
+              Instagram: Ashish Khanagwal
             </a>
           </div>
         </div>

@@ -39,13 +39,19 @@ nav {
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 100;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.2rem 3rem;
+  padding: 1.2rem 0;
   background: rgba(12,12,12,0.88);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
+}
+
+.nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .nav-logo {
@@ -223,6 +229,10 @@ h2 {
   margin-bottom: 1.5rem;
 }
 
+.accent-separator {
+  color: var(--accent);
+}
+
 /* STORY / ABOUT */
 .story-text {
   font-size: 1.08rem;
@@ -310,11 +320,69 @@ h2 {
 
 .croofx-thesis span { color: var(--accent2); }
 
+.croofx-terminal {
+  border: 1px solid var(--border);
+  background: #101010;
+  padding: 1.4rem 1.6rem;
+}
+
+.croofx-terminal-lines {
+  margin-bottom: 1rem;
+}
+
+.croofx-terminal-ai {
+  color: #7dd97e;
+}
+
+.croofx-terminal-croofx {
+  color: var(--accent2);
+}
+
+.croofx-terminal-text {
+  color: #ffffff;
+}
+
+.croofx-terminal-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 0.4rem 0 1rem;
+}
+
+.croofx-terminal-prompt {
+  color: var(--accent);
+}
+
+.croofx-terminal-command {
+  color: var(--accent);
+}
+
+.croofx-terminal-flow {
+  color: var(--muted);
+}
+
+.croofx-terminal-note {
+  color: var(--muted);
+}
+
+/* Ensure terminal text colors override generic thesis span color */
+.croofx-thesis .croofx-terminal-text {
+  color: #ffffff;
+}
+
+.croofx-thesis .croofx-terminal-flow,
+.croofx-thesis .croofx-terminal-note {
+  color: var(--muted);
+}
+
 .tag-row {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
   margin-top: 1.2rem;
+}
+
+.tag-row + .tag-row {
+  margin-top: 0.7rem;
 }
 
 .tag {
@@ -325,6 +393,24 @@ h2 {
   border: 1px solid var(--border);
   color: var(--muted);
   letter-spacing: 0.05em;
+}
+
+.tag-merge {
+  background: #c4d24a;
+  border-color: #c4d24a;
+  color: #0c0c0c;
+}
+
+.tag-critical {
+  background: var(--accent2);
+  border-color: var(--accent2);
+  color: #0c0c0c;
+}
+
+.tag-status {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #0c0c0c;
 }
 
 /* EXPERIENCE */
